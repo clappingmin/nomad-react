@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<body>
+  <div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+<script type="text/babel">
+  const root = document.getElementById("root")
+  function Btn(props) {
+    console.log(props)
+    return <button
+      style={{
+        backgroundColor: "tomato",
+        color: "white",
+        padding: "10px 20px",
+        border: 0,
+        borderRadius: 10,
+        fontSize: props.fontSize,
+      }}
+    >
+      {props.banana}
+    </button>
+  }
+
+  const MemorizedBtn = React.memo(Btn) // 부모 컨포넌트에 있는 모든 자식 컴포넌트가 리렌더링 하는 것을 방지
+
+  // 보내려는 prop의 타입을 맞춰서 보내지 않으면 에러를 발생시킨다.
+  Btn.propTyes = {
+    text: PropTypes.string,
+    fontSize: PropTypes.number.isRequired,
+  }
+  function App() {
+    const [value, setValue] = React.useState("Save Changes");
+    const changeValue = () => setValue("Revert Changess")
+    return (
+      // 이벤트리스너가 아니라 props의 인자일뿐
+      <div>
+        <MemorizedBtn banana={value} fontSize={18} />
+        <MemorizedBtn banana="Continue" />
+      </div>
+    );
+  }
+  // 우리가 페이지를 로드하면 바로 실행
+  ReactDOM.render(<App />, root);
+</script>
+
+</html>
