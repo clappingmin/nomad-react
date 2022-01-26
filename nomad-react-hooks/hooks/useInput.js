@@ -1,6 +1,10 @@
+// input 값 유효성 검사하는 hook
+
 export const useInput = (initialValue, validator) => {
   const [value, setValue] = useState(initialValue);
+
   const onChange = (event) => {
+    // event.target.value랑 같은 뜻
     const {
       target: { value },
     } = event;
@@ -28,6 +32,6 @@ export const useInput = (initialValue, validator) => {
 // //   <div>
 // //     <h1>Hello</h1>
 // //     {/* <input placeholder="Name" value={name.value} onChange={name.onChange} /> */}
-// //     <input placeholder="Name" {...name} />
+// //     <input placeholder="Name" {...name} /> {...name} : value = {name.value}, onChange = {name.onChange}
 // //   </div>
 // // );
